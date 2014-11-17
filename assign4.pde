@@ -131,13 +131,12 @@ void keyPressed() {
 void alienMaker(int x,int y, int spacing, int aNum, int aInRow){
   for (int i=0; i < aNum; ++i){
     
-    int row = i / aInRow;
-    int col = i % aInRow;
+    float row = i / aInRow;
+    float col = i % aInRow;
  
-    int aX = x + (spacing*col);
-    int aY = y + (spacing*row);
+    int aX = x + (spacing*int(col));
+    int aY = y + (spacing*int(row));
     aList[i]= new Alien(aX,aY);
-    println(aY);
  
 }
   
