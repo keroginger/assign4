@@ -1,4 +1,3 @@
-
 Ship ship;
 PowerUp ruby;
 Bullet[] bList;
@@ -18,7 +17,9 @@ int countBulletFrame;    //Bullet Time Counter
 int bulletNum;           //Bullet Order Number
 
 /*--------Put Variables Here---------*/
-
+int lNum;
+int countLaserFrame;
+int 
 
 void setup() {
 
@@ -59,7 +60,7 @@ void draw() {
 
     drawHorizon();
     drawScore();
-    drawLife();
+    drawLife(4);
     ship.display(); //Draw Ship on the Screen
     drawAlien();
     drawBullet();
@@ -72,6 +73,7 @@ void draw() {
     checkShipHit();  /*finish this function*/
 
     countBulletFrame+=1;
+    countLaserFrame +=1;
     break;
 
   case GAME_PAUSE:
@@ -103,6 +105,7 @@ void draw() {
     /*--------------------------------*/
     break;
   }
+  
 }
 
 void drawHorizon() {
@@ -139,18 +142,18 @@ void alienMaker(int x,int y, int spacing, int aNum, int aInRow){
     aList[i]= new Alien(aX,aY);
  
 }
-  
+
   
 }
 
-void drawLife() {
+void drawLife(int life) {
   fill(230, 74, 96);
   text("LIFE:", 36, 455);
   /*---------Draw Ship Life---------*/
   int circleX=78;
   int circleY=459;
   int circleGap=25;
-  for(int i=0;i<3;i++){
+  for(int i=0;i<life;i++){
   ellipse(circleX+(circleGap*i),circleY,15,15);
   }
 }
@@ -187,18 +190,19 @@ void drawAlien() {
       alien.move();    //Move Alien
       alien.display(); //Draw Alien
       /*---------Call Check Line Hit---------*/
-      lineHit();
+      lineHit(53);
       /*--------------------------------------*/
     }
   }
 }
 
 /*--------Check Line Hit---------*/
-void lineHit(){
-  if(aList[0].aY>250){
+void lineHit(int aNum){
+  for(int i=0;i<aNum-1;i++){
+  if(aList[i].aY410){
        status = GAME_LOSE;
      }
-  
+  }
 }
 
 /*---------Ship Shoot-------------*/
@@ -240,13 +244,20 @@ void checkAlienDead() {
         removeBullet(bList[i]);
         removeAlien(aList[j]);
         point+=10;
+         if(alien == null && point!=0 ){
+        status = GAME_WIN; 
       }
+      }
+    
     }
   }
 }
 
 /*---------Alien Drop Laser-----------------*/
+void alienShoot(int frame){
 
+  
+}
 
 /*---------Check Laser Hit Ship-------------*/
 void checkShipHit() {
@@ -366,7 +377,20 @@ void statusCtrl() {
 
       /*-----------add things here--------*/
     case GAME_PAUSE:
+      status = GAME_PLAYING;
+      break;
+    case GAME_WIN:
+      status = GAME_PLAYING;
+      reset();
+      break;
+    case GAME_LOSE:
+      status = GAME_PLAYING;
+      reset();
+      break;
+    case GAME_PLAYING:
       status = GAME_PAUSE;
+      break;
+     
     }
   }
 }
