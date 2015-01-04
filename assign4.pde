@@ -394,7 +394,7 @@ void reset() {
   
 
   /*-----------Call Make Alien Function--------*/
-  alienMaker(50,50,50,53,12);
+  alienMaker(50,50,40,53,12);
 
   ship.posX = width/2;
   ship.posY = 460;
